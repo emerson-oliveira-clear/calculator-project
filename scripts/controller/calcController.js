@@ -1,34 +1,60 @@
 class CalcController {
 
-constructor(){
-    this._displayCalc = "0";
-    this._currentDate;
-    this.initialize();
-}
-    initialize(){
-        let displayCalcEl = document.querySelector("#display");
-
-        let DateEl= document.querySelector("#data");
-
-        let timeEl= document.querySelector("#hora");
-
-        displayCalcEl.innerHTML = "4567";
-        DateEl.innerHTML = "21/05/2023";
-        timeEl.innerHTML = "00:00";
-
+    constructor() {
+        this._locale = 'pt-BR'
+        this._displayCalcEl = document.querySelector("#display");
+        this._DateEl = document.querySelector("#data");
+        this._timeEl = document.querySelector("#hora");
+        this._currentDate;
+        this.initialize();
     }
-//------------------
-    get displayCalc(){
-        return this._displayCalc
+    initialize() {
+        this.setDisplayDateTime();
+
+        setInterval(() => {
+            this.setDisplayDateTime();
+        }, 1000);
     }
-    set displayCalc(valor){
-        this._displayCalc = valor;
+
+    setDisplayDateTime() {
+        this.displayDate = this.currentDate.toLocaleDateString(this._locale, {
+            day: "2-digit",
+            month: "long",
+            year: "numeric"
+        
+        })
+
+        this.displayTime = this.currentDate.toLocaleTimeString(this._locale)
+    };
+
+    //----------set hora e data-------
+    set displayTime(value) {
+        return this._timeEl.innerHTML = value;
     }
-//------------------
-    get currentDate (){
-        return this._currentDate;
+    set displayDate(value) {
+        return this._DateEl.innerHTML = value;
     }
-    set currentDate(valor){
+    //----------get hora e data-------
+    get displayTime() {
+        return this._timeEl.innerHTML;
+    }
+    get displayDate() {
+        return this._DateEl.innerHTML;
+    }
+    //----------get resultado calc e data nova-------
+    get displayCalc() {
+        return this._displayCalcEl.innerHTML;
+    }
+
+    get currentDate() {
+        return new Date();
+    }
+
+    //----------set resultado calc e data nova-------
+    set currentDate(valor) {
         this._currentDate = valor;
+    }
+    set displayCalc(value) {
+        this._displayCalcEl.innerHTML = valor;
     }
 }
