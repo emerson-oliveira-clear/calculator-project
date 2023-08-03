@@ -15,7 +15,14 @@ class CalcController {
             this.setDisplayDateTime();
         }, 1000);
     }
+    //------------buttons   
+    initButtonsEvents(){
 
+        let buttons = document.querySelectorAll("#buttons > g, #parts > g");
+
+    }
+
+    //---------data e hora
     setDisplayDateTime() {
         this.displayDate = this.currentDate.toLocaleDateString(this._locale, {
             day: "2-digit",
