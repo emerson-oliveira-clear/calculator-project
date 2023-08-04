@@ -198,8 +198,11 @@ class CalcController {
         if (this.isOperator(lastOperation) || !lastOperation) {
             this.pushOperation('0.');
         } else {
-
+            this.setLastOperation(lastOperation.toString() + '.');
         }
+
+        this.setLastNumberToDisplay();
+
     }
 
     execBtn(value) {
@@ -238,7 +241,7 @@ class CalcController {
                 break;
 
             case "ponto":
-                this.addDot('.');
+                this.addDot();
                 break;
 
             case '0':
