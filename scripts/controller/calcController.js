@@ -176,9 +176,15 @@ class CalcController {
 
     }
     getResult() {
+        try{
 
         return eval(this._operation.join(""));
 
+        }catch(e){
+            setTimeout(()=>{
+                this.SetError();
+            },1)
+        }
     }
 
     calc() {
