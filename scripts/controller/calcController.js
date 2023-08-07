@@ -3,6 +3,7 @@ class CalcController {
     constructor() {
         this._lastOperator = '';
         this._lastNumber = '';
+
         this._operation = [];
         this._locale = 'pt-BR'
         this._displayCalcEl = document.querySelector("#display");
@@ -12,8 +13,31 @@ class CalcController {
         this.initialize();
         this.initButtonsEvents();
         this.initKeyBoard();
+        
 
     }
+
+    pasteFromClipboard(){
+        document.addEventListener('paste',e => {
+            let text = e.clipboardData.getData('text')
+
+            this.displayCalc = parseFloat(text);
+            console.log(text)
+        })
+
+    }
+
+
+    copyToClipboard(){
+
+        let input = document.createElement('input');
+        input.value = this.displayCalc;
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand("copy");
+        input.remove();
+    };
+
     initialize() {
         this.setDisplayDateTime();
 
@@ -21,7 +45,8 @@ class CalcController {
             this.setDisplayDateTime();
         }, 1000);
 
-        this.setLastNumberToDisplay()
+        this.setLastNumberToDisplay();
+        this.pasteFromClipboard();
     }
 
     initKeyBoard() {
@@ -69,6 +94,10 @@ class CalcController {
                 case '9':
                     this.addOperation(parseInt(e.key));
                     break;
+
+                case 'c':
+                if(e.ctrlKey) this.copyToClipboard()
+                break;
             }
         });
     }
